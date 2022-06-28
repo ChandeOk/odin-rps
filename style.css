@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.choice svg {
+  height: 100px;
+  width: 100px;
+}
+
+body {
+  background-color: #e5dbff;
+  font-family: "Titan One", cursive;
+}
+
+header {
+  text-align: center;
+  font-size: 60px;
+  margin-bottom: 50px;
+}
+
+main p,
+main h1 {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.rps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  margin-bottom: 170px;
+}
+
+.rps button {
+  height: 200px;
+  width: 200px;
+  background: none;
+  border: none;
+}
+
+.rps svg {
+  fill: #343a40;
+}
+
+.choice {
+  display: flex;
+  justify-content: center;
+  gap: 200px;
+  margin-bottom: 100px;
+}
+
+.score {
+  font-size: 36px;
+}
