@@ -38,83 +38,74 @@ let compChoice;
 let playerScore = 0;
 let compScore = 0;
 
-if (playerScore < 5 || compScore < 5) {
-  btns.addEventListener('click', function (event) {
-    const target = event.target.closest('button');
-    if (!target) return;
-    const result = document.querySelector('.result');
-    if (result) result.innerHTML = '';
-    clearChoiceColor();
+const game = function (event) {
+  const target = event.target.closest('button');
+  if (!target) return;
+  const result = document.querySelector('.result');
+  if (result) result.innerHTML = '';
+  // const again = document.querySelector('.again');
+  // if (again) again.innerHTML = '';
+  clearChoiceColor();
 
-    if (target.classList.contains('rock')) {
-      playerChoiceEl.innerHTML = rockIcon;
-      playerChoice = 'rock';
-    }
-    if (target.classList.contains('paper')) {
-      playerChoiceEl.innerHTML = paperIcon;
-      playerChoice = 'paper';
-    }
-    if (target.classList.contains('scissors')) {
-      playerChoiceEl.innerHTML = scissorsIcon;
-      playerChoice = 'scissors';
-    }
+  if (target.classList.contains('rock')) {
+    playerChoiceEl.innerHTML = rockIcon;
+    playerChoice = 'rock';
+  }
+  if (target.classList.contains('paper')) {
+    playerChoiceEl.innerHTML = paperIcon;
+    playerChoice = 'paper';
+  }
+  if (target.classList.contains('scissors')) {
+    playerChoiceEl.innerHTML = scissorsIcon;
+    playerChoice = 'scissors';
+  }
 
-    const chosen = computerChoice();
-    compChoice = rpsArray[chosen];
-    compChoiceEl.innerHTML = arrIcons[chosen];
-    round++;
+  const chosen = computerChoice();
+  compChoice = rpsArray[chosen];
+  compChoiceEl.innerHTML = arrIcons[chosen];
+  round++;
 
-    roundElement.textContent = `Round: ${round}!`;
+  roundElement.textContent = `Round: ${round}!`;
 
-    if (playerChoice === compChoice)
-      choices.insertAdjacentHTML('afterend', '<p class="result draw">draw</p>');
-    if (playerChoice === 'rock' && compChoice === 'scissors') {
-      playerScore++;
-      playerScoreEl.textContent = `Your Score: ${playerScore}`;
-      playerChoiceEl.classList.add('round-winner');
-    }
-    if (compChoice === 'paper' && playerChoice === 'rock') {
-      compScore++;
-      compScoreEl.textContent = `Computer Score: ${compScore}`;
-      compChoiceEl.classList.add('round-winner');
-    }
-    if (playerChoice === 'paper' && compChoice === 'rock') {
-      playerScore++;
-      playerChoiceEl.classList.add('round-winner');
-      playerScoreEl.textContent = `Your Score: ${playerScore}`;
-    }
-    if (compChoice === 'rock' && playerChoice === 'scissors') {
-      compScore++;
-      compChoiceEl.classList.add('round-winner');
-      compScoreEl.textContent = `Computer Score: ${compScore}`;
-    }
-    if (playerChoice === 'scissors' && compChoice === 'paper') {
-      playerScore++;
-      playerChoiceEl.classList.add('round-winner');
-      playerScoreEl.textContent = `Your Score: ${playerScore}`;
-    }
-    if (compChoice === 'scissors' && playerChoice === 'paper') {
-      compScore++;
-      compChoiceEl.classList.add('round-winner');
-      compScoreEl.textContent = `Computer Score: ${compScore}`;
-    }
+  if (playerChoice === compChoice)
+    choices.insertAdjacentHTML('afterend', '<p class="result draw">draw</p>');
+  if (playerChoice === 'rock' && compChoice === 'scissors') {
+    playerScore++;
+    playerScoreEl.textContent = `Your Score: ${playerScore}`;
+    playerChoiceEl.classList.add('round-winner');
+  }
+  if (compChoice === 'paper' && playerChoice === 'rock') {
+    compScore++;
+    compScoreEl.textContent = `Computer Score: ${compScore}`;
+    compChoiceEl.classList.add('round-winner');
+  }
+  if (playerChoice === 'paper' && compChoice === 'rock') {
+    playerScore++;
+    playerChoiceEl.classList.add('round-winner');
+    playerScoreEl.textContent = `Your Score: ${playerScore}`;
+  }
+  if (compChoice === 'rock' && playerChoice === 'scissors') {
+    compScore++;
+    compChoiceEl.classList.add('round-winner');
+    compScoreEl.textContent = `Computer Score: ${compScore}`;
+  }
+  if (playerChoice === 'scissors' && compChoice === 'paper') {
+    playerScore++;
+    playerChoiceEl.classList.add('round-winner');
+    playerScoreEl.textContent = `Your Score: ${playerScore}`;
+  }
+  if (compChoice === 'scissors' && playerChoice === 'paper') {
+    compScore++;
+    compChoiceEl.classList.add('round-winner');
+    compScoreEl.textContent = `Computer Score: ${compScore}`;
+  }
 
-    if (playerScore >= 5 || compScore >= 5) {
-      choices.insertAdjacentHTML(
-        'afterend',
-        playerScore > compScore
-          ? '<p class="result win">WIN!!!1</p>'
-          : '<p class="result lose">Try again :(</p>'
-      );
-      round = 0;
-      playerScore = 0;
-      compScore = 0;
-      compScoreEl.textContent = `Computer Score: ${compScore}`;
-      playerScoreEl.textContent = `Your Score: ${playerScore}`;
-    }
-    // if(compChoice===playerChoice)
-  });
-}
+  if (playerScore >= 5 || compScore >= 5) {
+    checkWinner();
+  }
+};
+
+btns.addEventListener('click', game);
 
 console.log(btns);
 
@@ -127,4 +118,36 @@ const clearChoiceColor = () => {
   playerChoiceEl.classList.remove('round-loser');
   compChoiceEl.classList.remove('round-winner');
   compChoiceEl.classList.remove('round-loser');
+};
+
+const checkWinner = () => {
+  btns.removeEventListener('click', game);
+  choices.insertAdjacentHTML(
+    'afterend',
+    playerScore > compScore
+      ? '<p class="result win">WIN!!!1</p>'
+      : '<p class="result lose">Try again :(</p>'
+  );
+  round = 0;
+  playerScore = 0;
+  compScore = 0;
+
+  roundElement.textContent = 'Round: 1';
+  createTryAgainButton();
+};
+
+const createTryAgainButton = function (text) {
+  choices.insertAdjacentHTML(
+    'afterend',
+    `<div class="again"><button class="try-again">PLAY AGAIN</button></div>`
+  );
+  const tryagain = document.querySelector('.try-again');
+  if (tryagain)
+    tryagain.addEventListener('click', function () {
+      btns.addEventListener('click', game);
+      document.querySelector('.again').innerHTML = '';
+      document.querySelector('.result').innerHTML = '';
+      compScoreEl.textContent = `Computer Score: ${compScore}`;
+      playerScoreEl.textContent = `Your Score: ${playerScore}`;
+    });
 };

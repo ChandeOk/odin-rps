@@ -31,7 +31,7 @@ main h1 {
   align-items: center;
   justify-content: center;
   gap: 100px;
-  margin-bottom: 170px;
+  margin-bottom: 60px;
 }
 
 .rps button {
@@ -49,12 +49,13 @@ main h1 {
   display: flex;
   justify-content: center;
   gap: 200px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
 .player-score,
 .comp-score {
   font-size: 36px;
+  margin: 10px;
 }
 
 button {
@@ -80,4 +81,19 @@ button {
 }
 .round-loser {
   fill: red;
+}
+
+.again {
+  display: flex;
+  justify-content: center;
+}
+
+.try-again {
+  color: #e5dbff;
+  font-size: 44px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #343a40;
+  border: none;
+  border-radius: 500px;
 }
