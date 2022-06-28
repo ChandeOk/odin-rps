@@ -11,7 +11,7 @@
 
 body {
   background-color: #e5dbff;
-  font-family: "Titan One", cursive;
+  font-family: 'Titan One', cursive;
 }
 
 header {
@@ -52,6 +52,32 @@ main h1 {
   margin-bottom: 100px;
 }
 
-.score {
+.player-score,
+.comp-score {
   font-size: 36px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.win {
+  color: green;
+  font-size: 44px;
+}
+
+.lose {
+  color: orangered;
+  font-size: 44px;
+}
+
+.draw {
+  color: darkblue;
+  font-size: 44px;
+}
+.round-winner {
+  fill: green;
+}
+.round-loser {
+  fill: red;
 }
